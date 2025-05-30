@@ -33,14 +33,23 @@ user_plan_df = clean_columns(user_plan_df)
 # Step 3: Select only the necessary keys
 # From user_registration: user_registration_id
 # From user_plan: user_registration_id, plan_id
+<<<<<<< HEAD
 user_registration_keys = user_registration_df[['user_id','user_registration_id']]
 user_plan_keys = user_plan_df[['user_registration_id', 'payment_detail_id']]
+=======
+user_registration_keys = user_registration_df[['user_registration_id']]
+user_plan_keys = user_plan_df[['user_registration_id', 'plan_id']]
+>>>>>>> c54ee89041345f8d62283b890c5e33b69343fe51
 
 # Step 4: Join on user_registration_id
 link_df = pd.merge(user_plan_keys, user_registration_keys, on='user_registration_id', how='inner')
 
 # Step 5: Generate Link Hash Key
+<<<<<<< HEAD
 business_keys = ["user_id", "payment_detail_id"]
+=======
+business_keys = ["user_registration_id", "plan_id"]
+>>>>>>> c54ee89041345f8d62283b890c5e33b69343fe51
 link_df['link_hash_key'] = link_df.apply(lambda row: generate_hash_key(row, business_keys), axis=1)
 
 # Step 6: Add Metadata
@@ -50,7 +59,11 @@ link_df['record_source'] = 'user_registration_plan_link'
 
 # Step 7: Organize columns
 link_final_df = link_df[['link_hash_key'] + business_keys + ['load_date', 'record_source']]
+<<<<<<< HEAD
 print(link_final_df.columns)
+=======
+
+>>>>>>> c54ee89041345f8d62283b890c5e33b69343fe51
 # Step 8: Save Output
 os.makedirs(output_dir, exist_ok=True)
 link_final_df.to_parquet(os.path.join(output_dir, link_filename), index=False)

@@ -41,7 +41,11 @@ hub_columns = ['hash_key'] + business_keys + ['load_date', 'record_source']
 hub_df = user_payment_df[hub_columns]
 
 # Step 6: Satellite Table
+<<<<<<< HEAD
 satellite_columns = [col for col in user_payment_df.columns if col not in business_keys and col != 'hash_key']
+=======
+satellite_columns = [col for col in user_payment_df.columns if col not in business_keys]
+>>>>>>> c54ee89041345f8d62283b890c5e33b69343fe51
 satellite_df = user_payment_df[['hash_key'] + satellite_columns]
 
 # Step 7: Save Outputs

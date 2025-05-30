@@ -72,11 +72,17 @@ hub_columns = ['hash_key'] + business_keys + ['load_date', 'record_source', 'sta
 hub_df = play_session_df[hub_columns]
 
 # Step 8: Create Satellite
+<<<<<<< HEAD
 
 satellite_columns = [col for col in play_session_df.columns if col not in business_keys and col != 'hash_key']
 satellite_df = play_session_df[['hash_key'] + satellite_columns]
 
 
+=======
+satellite_columns = [col for col in play_session_df.columns if col not in business_keys]
+satellite_df = play_session_df[['hash_key'] + satellite_columns]
+
+>>>>>>> c54ee89041345f8d62283b890c5e33b69343fe51
 # Step 9: Save Output
 os.makedirs(output_dir, exist_ok=True)
 hub_df.to_parquet(os.path.join(output_dir, hub_filename), index=False)

@@ -42,7 +42,11 @@ user_plan_df = user_plan_df.merge(
 )
 
 # Step 4: Generate Hash Key
+<<<<<<< HEAD
 business_keys = ["payment_detail_id"]
+=======
+business_keys = ["user_registration_id", "payment_detail_id", "plan_id"]
+>>>>>>> c54ee89041345f8d62283b890c5e33b69343fe51
 user_plan_df['hash_key'] = user_plan_df.apply(lambda row: generate_hash_key(row, business_keys), axis=1)
 
 # Step 5: Add Metadata
@@ -55,9 +59,15 @@ hub_columns = ['hash_key'] + business_keys + ['load_date', 'record_source']
 hub_df = user_plan_df[hub_columns]
 
 # Step 7: Satellite Table
+<<<<<<< HEAD
 satellite_columns = [col for col in user_plan_df.columns if col not in business_keys and col != 'hash_key']
 satellite_df = user_plan_df[['hash_key'] + satellite_columns]
 print(satellite_df.columns)
+=======
+satellite_columns = [col for col in user_plan_df.columns if col not in business_keys]
+satellite_df = user_plan_df[['hash_key'] + satellite_columns]
+
+>>>>>>> c54ee89041345f8d62283b890c5e33b69343fe51
 # Step 8: Save Outputs
 os.makedirs(output_dir, exist_ok=True)
 hub_df.to_parquet(os.path.join(output_dir, hub_filename), index=False)
